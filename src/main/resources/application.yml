@@ -12,9 +12,13 @@ spring:
       group-id: devGroup  # Consumer group ID, helps with load balancing and message distribution
       auto-offset-reset: earliest  # If no previous offset is found, start reading from the beginning
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer  # Deserialize message keys as Strings
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer  # Deserialize message values as Strings
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer  # Deserialize message values as Strings
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer  # JSON deserializer
+      properties:
+        spring.json.trusted.packages: "*"
 
     producer:
       bootstrap-servers: localhost:9092  # Kafka broker for the producer
       key-serializer: org.apache.kafka.common.serialization.StringSerializer  # Serialize message keys as Strings
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer  # Serialize message values as Strings
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer  # Serialize message values as Strings
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer  # JSON serializer for structured messages
